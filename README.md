@@ -6,16 +6,16 @@ https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
 
 It is a project working along with the course.<br>
 
-#### Frontend 
+<b>Frontend</b><br>
 React.js
 
-#### Backend 
+<b>Backend</b><br>
 Node.js
 
-#### DB
+<b>DB</b><br>
 PostgreSQL
 
-#### Deployment
+<b>Deployment</b><br>
 Heroku
 ### To see it running:<br>
 https://surfingsanta.github.io/robofriends/
