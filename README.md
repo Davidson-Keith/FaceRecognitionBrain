@@ -6,7 +6,7 @@ https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
 
 It is a project working along with the course.<br>
 <br>
-React.js
-Node.js
-PostgreSQL
+React.js<br>
+Node.js<br>
+PostgreSQL<br>
 Heroku
