@@ -17,5 +17,3 @@ PostgreSQL
 
 <b>Deployment</b><br>
 Heroku
-### To see it running:<br>
-https://surfingsanta.github.io/robofriends/
