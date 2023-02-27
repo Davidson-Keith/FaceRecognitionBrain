@@ -2,6 +2,11 @@ import React from "react";
 import Logo from "../logo/Logo";
 
 const Navigation = ({ onRouteChange }) => {
+  // -----
+  // Props
+  // -----
+  // onRouteChange: PropTypes.func.isRequired
+
   return (
     <nav
       className="pt3 mh3"
