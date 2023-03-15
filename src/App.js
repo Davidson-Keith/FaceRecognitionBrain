@@ -33,6 +33,8 @@ export default class App extends Component {
         entries: 0,
         joined: "",
       },
+      cssFramework: "tachyons",
+      // cssFramework: "reactstrap",
     };
     this.setBodyCSSClassName();
   }
@@ -141,7 +143,53 @@ export default class App extends Component {
 
   render() {
     console.log("App.render() - this.state:", this.state);
-    if (this.state.route === "sandpit") {
+
+    if (this.state.cssFramework === "tachyons") {
+      if (this.state.route === "sandpit") {
+        return (
+          <div>
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              route={this.state.route}
+              user={this.state.user}
+            />
+            <Sandpit
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          </div>
+        );
+      }
+      if (this.state.route === "signIn") {
+        return (
+          <div>
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              route={this.state.route}
+              user={this.state.user}
+            />
+            <SignIn
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          </div>
+        );
+      }
+      if (this.state.route === "register") {
+        return (
+          <div>
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              route={this.state.route}
+              user={this.state.user}
+            />
+            <Register
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          </div>
+        );
+      }
       return (
         <div>
           <Navigation
@@ -149,65 +197,99 @@ export default class App extends Component {
             route={this.state.route}
             user={this.state.user}
           />
-          <Sandpit
-            onRouteChange={this.onRouteChange}
-            loadUser={this.loadUser}
-          />
-        </div>
-      );
-    }
-    if (this.state.route === "signIn") {
-      return (
-        <div>
-          <Navigation
-            onRouteChange={this.onRouteChange}
-            route={this.state.route}
-            user={this.state.user}
-          />
-          <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
-        </div>
-      );
-    }
-    if (this.state.route === "register") {
-      return (
-        <div>
-          <Navigation
-            onRouteChange={this.onRouteChange}
-            route={this.state.route}
-            user={this.state.user}
-          />
-          <Register
-            onRouteChange={this.onRouteChange}
-            loadUser={this.loadUser}
-          />
-        </div>
-      );
-    }
-    return (
-      <div>
-        <Navigation
-          onRouteChange={this.onRouteChange}
-          route={this.state.route}
-          user={this.state.user}
-        />
-        {/* <EntryCount
+          {/* <EntryCount
           userName={this.state.user.name}
           entries={this.state.user.entries}
         /> */}
-        <ImageLinkForm
-          onImageInputChange={this.onImageInputChange}
-          onImageInputSubmit={this.onImageInputSubmit}
-          imageInput={this.state.imageInput}
-        />
-        <FaceRecognition
-          imageUrl={this.state.imageUrl}
-          imageError={this.state.imageError}
-          updateEntriesCount={this.updateEntriesCount}
-        />
-        {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
-        {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
+          <ImageLinkForm
+            onImageInputChange={this.onImageInputChange}
+            onImageInputSubmit={this.onImageInputSubmit}
+            imageInput={this.state.imageInput}
+          />
+          <FaceRecognition
+            imageUrl={this.state.imageUrl}
+            imageError={this.state.imageError}
+            updateEntriesCount={this.updateEntriesCount}
+          />
+          {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
+          {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
         "tadpole" "fountain" "random" "custom" */}
-      </div>
-    );
+        </div>
+      );
+    }
+
+    if (this.state.cssFramework === "reactstrap") {
+      if (this.state.route === "sandpit") {
+        return (
+          <div>
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              route={this.state.route}
+              user={this.state.user}
+            />
+            <Sandpit
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          </div>
+        );
+      }
+      if (this.state.route === "signIn") {
+        return (
+          <div>
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              route={this.state.route}
+              user={this.state.user}
+            />
+            <SignIn
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          </div>
+        );
+      }
+      if (this.state.route === "register") {
+        return (
+          <div>
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              route={this.state.route}
+              user={this.state.user}
+            />
+            <Register
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          </div>
+        );
+      }
+      return (
+        <div>
+          <Navigation
+            onRouteChange={this.onRouteChange}
+            route={this.state.route}
+            user={this.state.user}
+          />
+          {/* <EntryCount
+          userName={this.state.user.name}
+          entries={this.state.user.entries}
+        /> */}
+          <ImageLinkForm
+            onImageInputChange={this.onImageInputChange}
+            onImageInputSubmit={this.onImageInputSubmit}
+            imageInput={this.state.imageInput}
+          />
+          <FaceRecognition
+            imageUrl={this.state.imageUrl}
+            imageError={this.state.imageError}
+            updateEntriesCount={this.updateEntriesCount}
+          />
+          {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
+          {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
+        "tadpole" "fountain" "random" "custom" */}
+        </div>
+      );
+    }
   }
 }
