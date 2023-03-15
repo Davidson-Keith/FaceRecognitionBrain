@@ -1,18 +1,19 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import "./FaceRecognition.css";
 
 // const FaceRecognition = ({ imageUrl, box }) => {
 // https://purneauniversity.org/wp-content/uploads/2022/12/JC-.png
-// https://samples.clarifai.com/metro-north.jpg
 // https://www.oscars.org/sites/oscars/files/02_loren9.jpg
 // https://media.vanityfair.com/photos/615478afc1d17015c14bd905/master/pass/no-time-to-die-film-still-01.jpg
+// https://samples.clarifai.com/metro-north.jpg
 
 class FaceRecognition extends React.Component {
   // -----
   // Props
   // -----
   // imageUrl: PropTypes.string.isRequired
+  // imageError: PropTypes.bool.isRequired // true if imageURL is not an image
   // updateEntriesCount: PropTypes.func.isRequired // updates image calc count
 
   constructor(props) {
@@ -25,24 +26,45 @@ class FaceRecognition extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     console.log(
-      "FaceRecognition.componentDidUpdate() - this.state this.props:",
-      this.state,
+      "FaceRecognition.componentDidUpdate() - this.state:",
+      this.state
+    );
+    console.log(
+      "FaceRecognition.componentDidUpdate() - this.props:",
       this.props
     );
+    console.log(
+      "FaceRecognition.componentDidUpdate() - this.prevProps:",
+      prevProps
+    );
     if (prevProps.imageUrl !== this.props.imageUrl) {
-      this.runModel();
+      if (!this.props.imageError) {
+        console.log(
+          "FaceRecognition.componentDidUpdate() - new valid image URL, runModel called. - this.props.imageError:",
+          this.props.imageError
+        );
+        this.runModel();
+      } else {
+        console.log(
+          "FaceRecognition.componentDidUpdate() - URL is NOT an image. - this.props.imageError:",
+          this.props.imageError
+        );
+      }
+    } else {
+      console.log("prevProps.imageUrl === this.props.imageUrl");
     }
   }
 
   runModel = () => {
-    if (this.props.imageUrl) {
-      // reset box for new image so a misplaced box from the previous image doesn't sit on
-      // the new image while the Clarifai model runs, which can sometimes take some time.
-      this.setState({
-        box: { left: 0, top: 0, right: 0, bottom: 0 },
-      });
-      this.runClarifaiModel();
-    }
+    console.log("FaceRecognition.runModel()");
+    // if (this.props.imageUrl & !this.props.imageError) {
+    // reset box for new image so a misplaced box from the previous image doesn't sit on
+    // the new image while the Clarifai model runs, which can sometimes take some time.
+    this.setState({
+      box: { left: 0, top: 0, right: 0, bottom: 0 },
+    });
+    this.runClarifaiModel();
+    // }
   };
 
   // console.log("FaceRecognition(imageUrl, box) - imageUrl, box: ", imageUrl, box);
@@ -103,11 +125,13 @@ class FaceRecognition extends React.Component {
     )
       .then((response) => response.text())
       .then((result) => this.calcBox(result))
-      .catch((error) =>
-        console.log(
-          "FaceRecognition.runClarifaiModel().fetch.catch(error) - error",
-          error
-        )
+      .catch(
+        (error) =>
+          console.log(
+            "FaceRecognition.runClarifaiModel().fetch.catch(error) - error",
+            error
+          )
+        // todo: display "Not an image" error msg instead of trying to display the image
       );
   };
 
@@ -142,28 +166,41 @@ class FaceRecognition extends React.Component {
   };
 
   render() {
-    console.log(
-      "FaceRecognition.render() - this.state this.props:",
-      this.state,
-      this.props
-    );
-
+    console.log("FaceRecognition.render() - this.state", this.state);
+    console.log("FaceRecognition.render() - this.props:", this.props);
     const box = this.state.box;
-    let imgTag;
-    if (this.props.imageUrl) {
-      imgTag = (
-        <img
-          id="imageID"
-          alt="detect"
-          src={this.props.imageUrl}
-          width="500px"
-          // height="auto"
-        ></img>
-      );
+    let imgDiv;
+    if (this.props.imageUrl === "") {
+      imgDiv = "";
+    } else if (this.props.imageError) {
+      imgDiv = <p>Entered URL is not an image</p>;
     } else {
+      // if (this.props.imageUrl) {
+      imgDiv = (
+        <div className="absolute mt2">
+          <img
+            id="imageID"
+            alt="Running face detection"
+            src={this.props.imageUrl}
+            width="500px"
+            // height="auto"
+          ></img>
+          <div
+            className="boundingBox"
+            style={{
+              top: box.top,
+              right: box.right,
+              bottom: box.bottom,
+              left: box.left,
+            }}
+          ></div>
+        </div>
+      );
+      // } else {
       // if there is no image URL, then we don't want an image tag at all, or it will display
       // as a lost image.
-      imgTag = "";
+      // imgTag = "hi";
+      // }
     }
 
     return (
@@ -175,18 +212,7 @@ class FaceRecognition extends React.Component {
           justifyContent: "center",
         }}
       >
-        <div className="absolute mt2">
-          {imgTag}
-          <div
-            className="boundingBox"
-            style={{
-              top: box.top,
-              right: box.right,
-              bottom: box.bottom,
-              left: box.left,
-            }}
-          ></div>
-        </div>
+        {imgDiv}
       </div>
     );
   }
@@ -194,6 +220,7 @@ class FaceRecognition extends React.Component {
 
 FaceRecognition.propTypes = {
   imageUrl: PropTypes.string.isRequired,
+  imageError: PropTypes.bool.isRequired, // true if imageURL is not an image
   updateEntriesCount: PropTypes.func.isRequired,
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-// const Rank = ({ userName, entries }) => {
+// const EntryCount = ({ userName, entries }) => {
 
 class EntryCount extends React.Component {
   // -----
@@ -12,19 +12,21 @@ class EntryCount extends React.Component {
 
   render() {
     console.log(
-      "Rank(userName, entries) - userName, entries:",
+      "EntryCount(userName, entries) - userName, entries:",
       this.props.userName,
       this.props.entries
     );
     return (
       <div>
-        <div className="f4 tc">
-          {this.props.userName}, your current entry count is...
-        </div>
-        <div className="f2 tc">{this.props.entries}</div>
+        {/* <div className="f3 tc"> */}
+        <span className="f6 white mr3 mr4-ns">{this.props.userName}</span>
+        <span className="f6 white mr3 mr4-ns">
+          Entry Count: {this.props.entries}
+        </span>
+        {/* <div className="f3 tc">Entry Count: {this.props.entries}</div> */}
       </div>
     );
-  };
+  }
 }
 
 EntryCount.propTypes = {

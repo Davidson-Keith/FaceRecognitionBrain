@@ -1,14 +1,14 @@
 import { Component } from "react";
 import Navigation from "./components/navigation/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm";
-import EntryCount from "./components/Rank";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
+import Sandpit from "./components/Sandpit";
+import "tachyons"; // Replace all CSS files with tachyons CSS framework.
 // import "./App.css";
-import "tachyons";
 // import ParticlesBg from "particles-bg";
-class App extends Component {
+export default class App extends Component {
   // -----
   // Props
   // -----
@@ -20,9 +20,11 @@ class App extends Component {
     this.state = {
       imageInput: "",
       imageUrl: "",
-      route: "signIn",
+      imageError: false,
+      // route: "signIn",
       // route: "main",
       // route: "register",
+      route: "sandpit",
       isSignedIn: "false",
       user: {
         id: "",
@@ -32,6 +34,11 @@ class App extends Component {
         joined: "",
       },
     };
+    this.setBodyCSSClassName();
+  }
+
+  setBodyCSSClassName() {
+    document.body.className = "w-100 ma0 sans-serif";
   }
 
   componentDidMount() {
@@ -50,10 +57,49 @@ class App extends Component {
   };
 
   onImageInputSubmit = () => {
-    this.setState({ imageUrl: this.state.imageInput });
+    console.log("App.onImageInputSubmit - state:", this.state);
+    this.doesImageExist(this.state.imageInput).then((res) => {
+      if (res) {
+        console.log(
+          "App.onImageInputSubmit - image exists:",
+          this.state.imageInput
+        );
+        this.setState({
+          imageUrl: this.state.imageInput,
+          imageError: false,
+        });
+      } else {
+        console.log(
+          "App.onImageInputSubmit - image DOES NOT exists:",
+          this.state.imageInput
+        );
+        this.setState({
+          imageUrl: this.state.imageInput,
+          imageError: true,
+        });
+      }
+    });
+    console.log(this.state);
+  };
+
+  doesImageExist = (url) => {
+    console.log("App.doesImageExist");
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => {
+        console.log("App.doesImageExist - image exists:", url);
+        resolve(true);
+      };
+      img.onerror = () => {
+        console.log("App.doesImageExist - image DOES NOT exists:", url);
+        resolve(false);
+      };
+    });
   };
 
   onRouteChange = (route) => {
+    console.log("App.onRouteChange - route:", route);
     this.setState({ route: route });
   };
 
@@ -70,7 +116,9 @@ class App extends Component {
       .then((user) => {
         if (user.id) {
           console.log("pp.updateEntriesCount().fetch - response.user:", user);
-          this.setState(Object.assign(this.state.user, { entries: user.entries }));
+          this.setState(
+            Object.assign(this.state.user, { entries: user.entries })
+          );
           // this.setState({ user: user });
         } else {
           console.log(
@@ -79,7 +127,7 @@ class App extends Component {
           );
         }
       });
-  }
+  };
 
   loadUser = (data) => {
     this.setState({
@@ -93,23 +141,59 @@ class App extends Component {
 
   render() {
     console.log("App.render() - this.state:", this.state);
+    if (this.state.route === "sandpit") {
+      return (
+        <div>
+          <Navigation
+            onRouteChange={this.onRouteChange}
+            route={this.state.route}
+            user={this.state.user}
+          />
+          <Sandpit
+            onRouteChange={this.onRouteChange}
+            loadUser={this.loadUser}
+          />
+        </div>
+      );
+    }
     if (this.state.route === "signIn") {
       return (
-        <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+        <div>
+          <Navigation
+            onRouteChange={this.onRouteChange}
+            route={this.state.route}
+            user={this.state.user}
+          />
+          <SignIn onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+        </div>
       );
     }
     if (this.state.route === "register") {
       return (
-        <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+        <div>
+          <Navigation
+            onRouteChange={this.onRouteChange}
+            route={this.state.route}
+            user={this.state.user}
+          />
+          <Register
+            onRouteChange={this.onRouteChange}
+            loadUser={this.loadUser}
+          />
+        </div>
       );
     }
     return (
       <div>
-        <Navigation onRouteChange={this.onRouteChange} />
-        <EntryCount
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          route={this.state.route}
+          user={this.state.user}
+        />
+        {/* <EntryCount
           userName={this.state.user.name}
           entries={this.state.user.entries}
-        />
+        /> */}
         <ImageLinkForm
           onImageInputChange={this.onImageInputChange}
           onImageInputSubmit={this.onImageInputSubmit}
@@ -117,6 +201,7 @@ class App extends Component {
         />
         <FaceRecognition
           imageUrl={this.state.imageUrl}
+          imageError={this.state.imageError}
           updateEntriesCount={this.updateEntriesCount}
         />
         {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
@@ -126,5 +211,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
