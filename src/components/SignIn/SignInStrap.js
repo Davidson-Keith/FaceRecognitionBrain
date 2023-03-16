@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Field, FieldError, Form } from "react-jsonschema-form-validation";
 
-// import './SignIn.css';
+// import './SignInTach.css';
 
-// const SignIn = ({ onRouteChange }) => {
+// const SignInTach = ({ onRouteChange }) => {
 
-export default class SignIn extends React.Component {
+export default class SignInTach extends React.Component {
   // -----
   // Props
   // -----
@@ -38,12 +38,12 @@ export default class SignIn extends React.Component {
   };
 
   handleChange = (newData) => {
-    console.log("SignIn.handleChange - newData:", newData);
+    console.log("SignInTach.handleChange - newData:", newData);
     this.setState({ formData: newData, success: false });
   };
 
   handleSubmit = () => {
-    console.log("SignIn.handleSubmit");
+    console.log("SignInTach.handleSubmit");
     this.setState({ validateSuccess: true });
   };
 
@@ -56,7 +56,7 @@ export default class SignIn extends React.Component {
   // };
 
   onSubmitSignIn = () => {
-    console.log("SignIn.onSubmitSignIn() - this.state:", this.state);
+    console.log("SignInTach.onSubmitSignIn() - this.state:", this.state);
     fetch("http://localhost:3000/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -69,12 +69,12 @@ export default class SignIn extends React.Component {
       .then((user) => {
         // if user exists
         if (user.id) {
-          console.log("SignIn.onSubmitSignIn().fetch - response.user:", user);
+          console.log("SignInTach.onSubmitSignIn().fetch - response.user:", user);
           this.props.loadUser(user);
           this.props.onRouteChange("main");
         } else {
           console.log(
-            "SignIn.onSubmitSignIn().fetch - login failed - message:",
+            "SignInTach.onSubmitSignIn().fetch - login failed - message:",
             user
           );
           this.setState({ signInErrorMessage: user });
@@ -174,7 +174,7 @@ export default class SignIn extends React.Component {
   }
 }
 
-SignIn.propTypes = {
+SignInTach.propTypes = {
   loadUser: PropTypes.func.isRequired,
   onRouteChange: PropTypes.func.isRequired,
 };

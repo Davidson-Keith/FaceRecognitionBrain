@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-// const EntryCount = ({ userName, entries }) => {
+// const EntryCountTach = ({ userName, entries }) => {
 
-class EntryCount extends React.Component {
+class EntryCountTach extends React.Component {
   // -----
   // Props
   // -----
@@ -12,7 +12,7 @@ class EntryCount extends React.Component {
 
   render() {
     console.log(
-      "EntryCount(userName, entries) - userName, entries:",
+      "EntryCountTach(userName, entries) - userName, entries:",
       this.props.userName,
       this.props.entries
     );
@@ -29,9 +29,9 @@ class EntryCount extends React.Component {
   }
 }
 
-EntryCount.propTypes = {
+EntryCountTach.propTypes = {
   userName: PropTypes.string.isRequired,
   entries: PropTypes.number.isRequired, // integer >= 0.
 };
 
-export default EntryCount;
+export default EntryCountTach;

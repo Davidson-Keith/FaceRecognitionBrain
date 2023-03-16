@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./FaceRecognition.css";
 
-// const FaceRecognition = ({ imageUrl, box }) => {
+// const FaceRecognitionTach = ({ imageUrl, box }) => {
 // https://purneauniversity.org/wp-content/uploads/2022/12/JC-.png
 // https://www.oscars.org/sites/oscars/files/02_loren9.jpg
 // https://media.vanityfair.com/photos/615478afc1d17015c14bd905/master/pass/no-time-to-die-film-still-01.jpg
 // https://samples.clarifai.com/metro-north.jpg
 
-class FaceRecognition extends React.Component {
+class FaceRecognitionTach extends React.Component {
   // -----
   // Props
   // -----
@@ -17,7 +17,7 @@ class FaceRecognition extends React.Component {
   // updateEntriesCount: PropTypes.func.isRequired // updates image calc count
 
   constructor(props) {
-    console.log("FaceRecognition.constructor(props) - props:", props);
+    console.log("FaceRecognitionTach.constructor(props) - props:", props);
     super(props);
     this.state = {
       box: { left: 0, top: 0, right: 0, bottom: 0 },
@@ -26,27 +26,27 @@ class FaceRecognition extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     console.log(
-      "FaceRecognition.componentDidUpdate() - this.state:",
+      "FaceRecognitionTach.componentDidUpdate() - this.state:",
       this.state
     );
     console.log(
-      "FaceRecognition.componentDidUpdate() - this.props:",
+      "FaceRecognitionTach.componentDidUpdate() - this.props:",
       this.props
     );
     console.log(
-      "FaceRecognition.componentDidUpdate() - this.prevProps:",
+      "FaceRecognitionTach.componentDidUpdate() - this.prevProps:",
       prevProps
     );
     if (prevProps.imageUrl !== this.props.imageUrl) {
       if (!this.props.imageError) {
         console.log(
-          "FaceRecognition.componentDidUpdate() - new valid image URL, runModel called. - this.props.imageError:",
+          "FaceRecognitionTach.componentDidUpdate() - new valid image URL, runModel called. - this.props.imageError:",
           this.props.imageError
         );
         this.runModel();
       } else {
         console.log(
-          "FaceRecognition.componentDidUpdate() - URL is NOT an image. - this.props.imageError:",
+          "FaceRecognitionTach.componentDidUpdate() - URL is NOT an image. - this.props.imageError:",
           this.props.imageError
         );
       }
@@ -56,7 +56,7 @@ class FaceRecognition extends React.Component {
   }
 
   runModel = () => {
-    console.log("FaceRecognition.runModel()");
+    console.log("FaceRecognitionTach.runModel()");
     // if (this.props.imageUrl & !this.props.imageError) {
     // reset box for new image so a misplaced box from the previous image doesn't sit on
     // the new image while the Clarifai model runs, which can sometimes take some time.
@@ -67,11 +67,11 @@ class FaceRecognition extends React.Component {
     // }
   };
 
-  // console.log("FaceRecognition(imageUrl, box) - imageUrl, box: ", imageUrl, box);
+  // console.log("FaceRecognitionTach(imageUrl, box) - imageUrl, box: ", imageUrl, box);
 
   runClarifaiModel = () => {
     console.log(
-      "FaceRecognition.runClarifaiModel() - this.state this.props:",
+      "FaceRecognitionTach.runClarifaiModel() - this.state this.props:",
       this.state,
       this.props
     );
@@ -128,7 +128,7 @@ class FaceRecognition extends React.Component {
       .catch(
         (error) =>
           console.log(
-            "FaceRecognition.runClarifaiModel().fetch.catch(error) - error",
+            "FaceRecognitionTach.runClarifaiModel().fetch.catch(error) - error",
             error
           )
         // todo: display "Not an image" error msg instead of trying to display the image
@@ -136,22 +136,22 @@ class FaceRecognition extends React.Component {
   };
 
   calcBox = (jsonData) => {
-    console.log("FaceRecognition.calcBox(jsonData) - jsonData:", jsonData);
+    console.log("FaceRecognitionTach.calcBox(jsonData) - jsonData:", jsonData);
     const clarifaiBoxData =
       JSON.parse(jsonData).outputs[0].data.regions[0].region_info.bounding_box;
     console.log(
-      "FaceRecognition.calcBox(jsonData) - clarifaiBoxData: ",
+      "FaceRecognitionTach.calcBox(jsonData) - clarifaiBoxData: ",
       clarifaiBoxData
     );
     const image = document.getElementById("imageID");
     const imageWidth = Number(image.width);
     const imageHeight = Number(image.height);
     console.log(
-      "FaceRecognition.calcBox(jsonData) - Image width: ",
+      "FaceRecognitionTach.calcBox(jsonData) - Image width: ",
       imageWidth
     );
     console.log(
-      "FaceRecognition.calcBox(jsonData) - Image height: ",
+      "FaceRecognitionTach.calcBox(jsonData) - Image height: ",
       imageHeight
     );
     const boxData = {
@@ -160,14 +160,14 @@ class FaceRecognition extends React.Component {
       right: imageWidth - clarifaiBoxData.right_col * imageWidth,
       bottom: imageHeight - clarifaiBoxData.bottom_row * imageHeight,
     };
-    console.log("FaceRecognition.calcBox(jsonData) - boxData: ", boxData);
+    console.log("FaceRecognitionTach.calcBox(jsonData) - boxData: ", boxData);
     this.setState({ box: boxData });
     this.props.updateEntriesCount();
   };
 
   render() {
-    console.log("FaceRecognition.render() - this.state", this.state);
-    console.log("FaceRecognition.render() - this.props:", this.props);
+    console.log("FaceRecognitionTach.render() - this.state", this.state);
+    console.log("FaceRecognitionTach.render() - this.props:", this.props);
     const box = this.state.box;
     let imgDiv;
     if (this.props.imageUrl === "") {
@@ -218,13 +218,13 @@ class FaceRecognition extends React.Component {
   }
 }
 
-FaceRecognition.propTypes = {
+FaceRecognitionTach.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   imageError: PropTypes.bool.isRequired, // true if imageURL is not an image
   updateEntriesCount: PropTypes.func.isRequired,
 };
 
-export default FaceRecognition;
+export default FaceRecognitionTach;
 
 // .box {
 //   position: absolute;

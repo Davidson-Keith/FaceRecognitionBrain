@@ -1,9 +1,9 @@
 import React from "react";
 // import Tilt from "react-parallax-tilt";
 import brain from "./Brain2-52.png";
-// import './Logo.css';
+// import './LogoTach.css';
 
-const Logo = () => {
+const LogoTach = () => {
   return (
     // <Tilt
     //   // className="br2 shadow-2"
@@ -23,4 +23,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default LogoTach;

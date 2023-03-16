@@ -1,7 +1,7 @@
 import React from "react";
-// import './ImageLinkForm.css'
+// import './ImageLinkFormTach.css'
 
-const ImageLinkForm = ({ onImageInputChange, onImageInputSubmit, input }) => {
+const ImageLinkFormTach = ({ onImageInputChange, onImageInputSubmit, input }) => {
   // -----
   // Props
   // -----
@@ -37,4 +37,4 @@ const ImageLinkForm = ({ onImageInputChange, onImageInputSubmit, input }) => {
   );
 };
 
-export default ImageLinkForm;
+export default ImageLinkFormTach;

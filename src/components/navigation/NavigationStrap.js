@@ -1,12 +1,12 @@
 import React from "react";
-import Logo from "../logo/Logo";
-// import EntryCount from "../EntryCount";
+import LogoTach from "../logo/LogoTach";
+// import EntryCountTach from "../EntryCountTach";
 import PropTypes from "prop-types";
-import NavText from "./NavText";
-import NavButton from "./navButtons/NavButton";
-import NavButtonSignIn from "./navButtons/NavButtonSignIn";
+import NavTextTach from "./NavTextTach";
+import NavButtonTach from "./navButtons/NavButtonTach";
+import NavButtonSignInTach from "./navButtons/NavButtonSignInTach";
 
-class Navigation extends React.Component {
+class NavigationTach extends React.Component {
   // -----
   // Props
   // -----
@@ -20,13 +20,13 @@ class Navigation extends React.Component {
     if (this.props.route === "main") {
       mainSection = (
         <div className={mainSectionClass}>
-          <NavText text={this.props.user.name} />
-          <NavText text={`Entry Count: ${this.props.user.entries}`} />
-          <NavButton
+          <NavTextTach text={this.props.user.name} />
+          <NavTextTach text={`Entry Count: ${this.props.user.entries}`} />
+          <NavButtonTach
             text={"Sandpit"}
             onClick={() => this.props.onRouteChange("sandpit")}
           />
-          <NavButton
+          <NavButtonTach
             text={"Sign Out"}
             onClick={() => this.props.onRouteChange("signIn")}
           />
@@ -36,12 +36,12 @@ class Navigation extends React.Component {
     if (this.props.route === "signIn") {
       mainSection = (
         <div className={mainSectionClass}>
-          <NavButton
+          <NavButtonTach
             text={"Sandpit"}
             onClick={() => this.props.onRouteChange("sandpit")}
           />
-          <NavText text={"Sign In"} />
-          <NavButton
+          <NavTextTach text={"Sign In"} />
+          <NavButtonTach
             text={"Register"}
             onClick={() => this.props.onRouteChange("register")}
           />
@@ -51,22 +51,22 @@ class Navigation extends React.Component {
     if (this.props.route === "register") {
       mainSection = (
         <div className={mainSectionClass}>
-          <NavButton
+          <NavButtonTach
             text={"Sandpit"}
             onClick={() => this.props.onRouteChange("sandpit")}
           />
-          <NavButtonSignIn onClick={() => this.props.onRouteChange("signIn")} />
-          <NavText text={"Register"} />
+          <NavButtonSignInTach onClick={() => this.props.onRouteChange("signIn")} />
+          <NavTextTach text={"Register"} />
         </div>
       );
     }
     if (this.props.route === "sandpit") {
       mainSection = (
         <div className={mainSectionClass}>
-          <NavText text={this.props.user.name} />
-          <NavText text={`Entry Count: ${this.props.user.entries}`} />
-          <NavText text={"Sandpit"} />
-          <NavButton
+          <NavTextTach text={this.props.user.name} />
+          <NavTextTach text={`Entry Count: ${this.props.user.entries}`} />
+          <NavTextTach text={"Sandpit"} />
+          <NavButtonTach
             text={"Sign Out"}
             onClick={() => this.props.onRouteChange("signIn")}
           />
@@ -76,17 +76,17 @@ class Navigation extends React.Component {
 
     return (
       <nav className="flex justify-between bb b--white-10 bg-near-black">
-        <Logo />
+        <LogoTach />
         {mainSection}
       </nav>
     );
   }
 }
 
-Navigation.propTypes = {
+NavigationTach.propTypes = {
   onRouteChange: PropTypes.func.isRequired,
   route: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
 };
 
-export default Navigation;
+export default NavigationTach;

@@ -1,11 +1,19 @@
 import { Component } from "react";
-import Navigation from "./components/navigation/Navigation";
-import ImageLinkForm from "./components/ImageLinkForm";
-import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import SignIn from "./components/SignIn/SignIn";
-import Register from "./components/Register/Register";
+
+import NavigationTach from "./components/navigation/NavigationTach";
+import ImageLinkFormTach from "./components/ImageLinkFormTach";
+import FaceRecognitionTach from "./components/FaceRecognition/FaceRecognitionTach";
+import SignInTach from "./components/SignIn/SignInTach";
+import RegisterTach from "./components/Register/RegisterTach";
+
+import NavigationStrap from "./components/navigation/NavigationStrap";
+import ImageLinkFormStrap from "./components/ImageLinkFormStrap";
+import FaceRecognitionStrap from "./components/FaceRecognition/FaceRecognitionStrap";
+import SignInStrap from "./components/SignIn/SignInStrap";
+import RegisterStrap from "./components/Register/RegisterStrap";
+
 import Sandpit from "./components/Sandpit";
-import "tachyons"; // Replace all CSS files with tachyons CSS framework.
+
 // import "./App.css";
 // import ParticlesBg from "particles-bg";
 export default class App extends Component {
@@ -144,11 +152,14 @@ export default class App extends Component {
   render() {
     console.log("App.render() - this.state:", this.state);
 
+    // -----------------------------------
+    // CSS = tachyons
+    // -----------------------------------
     if (this.state.cssFramework === "tachyons") {
       if (this.state.route === "sandpit") {
         return (
           <div>
-            <Navigation
+            <NavigationTach
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
@@ -163,12 +174,12 @@ export default class App extends Component {
       if (this.state.route === "signIn") {
         return (
           <div>
-            <Navigation
+            <NavigationTach
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
             />
-            <SignIn
+            <SignInTach
               onRouteChange={this.onRouteChange}
               loadUser={this.loadUser}
             />
@@ -178,12 +189,12 @@ export default class App extends Component {
       if (this.state.route === "register") {
         return (
           <div>
-            <Navigation
+            <NavigationTach
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
             />
-            <Register
+            <RegisterTach
               onRouteChange={this.onRouteChange}
               loadUser={this.loadUser}
             />
@@ -192,21 +203,17 @@ export default class App extends Component {
       }
       return (
         <div>
-          <Navigation
+          <NavigationTach
             onRouteChange={this.onRouteChange}
             route={this.state.route}
             user={this.state.user}
           />
-          {/* <EntryCount
-          userName={this.state.user.name}
-          entries={this.state.user.entries}
-        /> */}
-          <ImageLinkForm
+          <ImageLinkFormTach
             onImageInputChange={this.onImageInputChange}
             onImageInputSubmit={this.onImageInputSubmit}
             imageInput={this.state.imageInput}
           />
-          <FaceRecognition
+          <FaceRecognitionTach
             imageUrl={this.state.imageUrl}
             imageError={this.state.imageError}
             updateEntriesCount={this.updateEntriesCount}
@@ -218,11 +225,14 @@ export default class App extends Component {
       );
     }
 
+    // -----------------------------------
+    // CSS = reactstrap
+    // -----------------------------------
     if (this.state.cssFramework === "reactstrap") {
       if (this.state.route === "sandpit") {
         return (
           <div>
-            <Navigation
+            <NavigationStrap
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
@@ -237,12 +247,12 @@ export default class App extends Component {
       if (this.state.route === "signIn") {
         return (
           <div>
-            <Navigation
+            <NavigationStrap
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
             />
-            <SignIn
+            <SignInStrap
               onRouteChange={this.onRouteChange}
               loadUser={this.loadUser}
             />
@@ -252,12 +262,12 @@ export default class App extends Component {
       if (this.state.route === "register") {
         return (
           <div>
-            <Navigation
+            <NavigationStrap
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
             />
-            <Register
+            <RegisterStrap
               onRouteChange={this.onRouteChange}
               loadUser={this.loadUser}
             />
@@ -266,28 +276,21 @@ export default class App extends Component {
       }
       return (
         <div>
-          <Navigation
+          <NavigationStrap
             onRouteChange={this.onRouteChange}
             route={this.state.route}
             user={this.state.user}
           />
-          {/* <EntryCount
-          userName={this.state.user.name}
-          entries={this.state.user.entries}
-        /> */}
-          <ImageLinkForm
+          <ImageLinkFormStrap
             onImageInputChange={this.onImageInputChange}
             onImageInputSubmit={this.onImageInputSubmit}
             imageInput={this.state.imageInput}
           />
-          <FaceRecognition
+          <FaceRecognitionStrap
             imageUrl={this.state.imageUrl}
             imageError={this.state.imageError}
             updateEntriesCount={this.updateEntriesCount}
           />
-          {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
-          {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
-        "tadpole" "fountain" "random" "custom" */}
         </div>
       );
     }
