@@ -1,21 +1,13 @@
 import { Component } from "react";
 
-import NavigationTach from "./components/navigation/NavigationTach";
-import ImageLinkFormTach from "./components/ImageLinkFormTach";
-import FaceRecognitionTach from "./components/FaceRecognition/FaceRecognitionTach";
-import SignInTach from "./components/SignIn/SignInTach";
-import RegisterTach from "./components/Register/RegisterTach";
-
-import NavigationStrap from "./components/navigation/NavigationStrap";
-import ImageLinkFormStrap from "./components/ImageLinkFormStrap";
-import FaceRecognitionStrap from "./components/FaceRecognition/FaceRecognitionStrap";
-import SignInStrap from "./components/SignIn/SignInStrap";
-import RegisterStrap from "./components/Register/RegisterStrap";
+import NavigationStrap from "./components/navigation/Navigation";
+import ImageLinkFormStrap from "./components/ImageLinkForm";
+import FaceRecognitionStrap from "./components/FaceRecognition/FaceRecognition";
+import SignInStrap from "./components/SignIn/SignIn";
+import RegisterStrap from "./components/Register/Register";
 
 import Sandpit from "./components/Sandpit";
 
-// import "./App.css";
-// import ParticlesBg from "particles-bg";
 export default class App extends Component {
   // -----
   // Props
@@ -29,10 +21,10 @@ export default class App extends Component {
       imageInput: "",
       imageUrl: "",
       imageError: false,
-      // route: "signIn",
+      route: "signIn",
       // route: "main",
       // route: "register",
-      route: "sandpit",
+      // route: "sandpit",
       isSignedIn: "false",
       user: {
         id: "",
@@ -41,14 +33,12 @@ export default class App extends Component {
         entries: 0,
         joined: "",
       },
-      cssFramework: "tachyons",
-      // cssFramework: "reactstrap",
     };
     this.setBodyCSSClassName();
   }
 
   setBodyCSSClassName() {
-    document.body.className = "w-100 ma0 sans-serif";
+    // document.body.className = "w-100 ma0 sans-serif";
   }
 
   componentDidMount() {
@@ -151,84 +141,6 @@ export default class App extends Component {
 
   render() {
     console.log("App.render() - this.state:", this.state);
-
-    // -----------------------------------
-    // CSS = tachyons
-    // -----------------------------------
-    if (this.state.cssFramework === "tachyons") {
-      if (this.state.route === "sandpit") {
-        return (
-          <div>
-            <NavigationTach
-              onRouteChange={this.onRouteChange}
-              route={this.state.route}
-              user={this.state.user}
-            />
-            <Sandpit
-              onRouteChange={this.onRouteChange}
-              loadUser={this.loadUser}
-            />
-          </div>
-        );
-      }
-      if (this.state.route === "signIn") {
-        return (
-          <div>
-            <NavigationTach
-              onRouteChange={this.onRouteChange}
-              route={this.state.route}
-              user={this.state.user}
-            />
-            <SignInTach
-              onRouteChange={this.onRouteChange}
-              loadUser={this.loadUser}
-            />
-          </div>
-        );
-      }
-      if (this.state.route === "register") {
-        return (
-          <div>
-            <NavigationTach
-              onRouteChange={this.onRouteChange}
-              route={this.state.route}
-              user={this.state.user}
-            />
-            <RegisterTach
-              onRouteChange={this.onRouteChange}
-              loadUser={this.loadUser}
-            />
-          </div>
-        );
-      }
-      return (
-        <div>
-          <NavigationTach
-            onRouteChange={this.onRouteChange}
-            route={this.state.route}
-            user={this.state.user}
-          />
-          <ImageLinkFormTach
-            onImageInputChange={this.onImageInputChange}
-            onImageInputSubmit={this.onImageInputSubmit}
-            imageInput={this.state.imageInput}
-          />
-          <FaceRecognitionTach
-            imageUrl={this.state.imageUrl}
-            imageError={this.state.imageError}
-            updateEntriesCount={this.updateEntriesCount}
-          />
-          {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
-          {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
-        "tadpole" "fountain" "random" "custom" */}
-        </div>
-      );
-    }
-
-    // -----------------------------------
-    // CSS = reactstrap
-    // -----------------------------------
-    if (this.state.cssFramework === "reactstrap") {
       if (this.state.route === "sandpit") {
         return (
           <div>
@@ -293,6 +205,5 @@ export default class App extends Component {
           />
         </div>
       );
-    }
   }
 }
