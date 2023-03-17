@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class NavTextTach extends React.Component {
+export default class NavText extends React.Component {
   // -----
   // Props
   // -----
@@ -11,6 +11,6 @@ export default class NavTextTach extends React.Component {
   }
 }
 
-NavTextTach.propTypes = {
+NavText.propTypes = {
   text: PropTypes.string.isRequired,
 };

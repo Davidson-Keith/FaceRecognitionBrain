@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-class RegisterTach extends React.Component {
+class Register extends React.Component {
   // -----
   // Props
   // -----
@@ -30,7 +30,7 @@ class RegisterTach extends React.Component {
   };
 
   onSubmitRegister = () => {
-    console.log("RegisterTach.onSubmitRegister() - this.state:", this.state);
+    console.log("Register.onSubmitRegister() - this.state:", this.state);
     fetch("http://localhost:3000/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ class RegisterTach extends React.Component {
       .then((user) => {
         if (user) {
           console.log(
-            "RegisterTach.onSubmitRegister().fetch - response.user:",
+            "Register.onSubmitRegister().fetch - response.user:",
             user
           );
           this.props.loadUser(user);
@@ -59,7 +59,7 @@ class RegisterTach extends React.Component {
         <main className="pa4 black-80">
           <div className="measure center">
             <fieldset id="register" className="ba b--transparent ph0 mh0">
-              <legend className="f4 fw6 ph0 mh0">RegisterTach</legend>
+              <legend className="f4 fw6 ph0 mh0">Register</legend>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="name">
                   Name
@@ -104,7 +104,7 @@ class RegisterTach extends React.Component {
               <input
                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                 type="submit"
-                value="RegisterTach"
+                value="Register"
                 onClick={this.onSubmitRegister}
               />
             </div>
@@ -115,9 +115,9 @@ class RegisterTach extends React.Component {
   }
 }
 
-RegisterTach.propTypes = {
+Register.propTypes = {
   loadUser: PropTypes.func.isRequired,
   onRouteChange: PropTypes.func.isRequired
 };
 
-export default RegisterTach;
+export default Register;

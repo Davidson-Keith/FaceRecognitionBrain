@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NavButtonTach from "./NavButtonTach";
+import NavButton from "./NavButton";
 
-export default class NavButtonSignInTach extends React.Component {
+export default class NavButtonSignIn extends React.Component {
   // -----
   // Props
   // -----
   // onClick: PropTypes.func.isRequired
 
   render() {
-    return <NavButtonTach text={"Sign In"} onClick={this.props.onClick} />;
+    return <NavButton text={"Sign In"} onClick={this.props.onClick} />;
   }
 }
 
-NavButtonSignInTach.propTypes = {
+NavButtonSignIn.propTypes = {
   onClick: PropTypes.func.isRequired,
 };

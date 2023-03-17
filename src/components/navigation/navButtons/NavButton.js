@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class NavButtonTach extends React.Component {
+export default class NavButton extends React.Component {
   // -----
   // Props
   // -----
@@ -20,7 +20,7 @@ export default class NavButtonTach extends React.Component {
   }
 }
 
-NavButtonTach.propTypes = {
+NavButton.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
