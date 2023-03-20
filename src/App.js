@@ -1,10 +1,10 @@
 import { Component } from "react";
 
-import NavigationStrap from "./components/navigation/Navigation";
-import ImageLinkFormStrap from "./components/ImageLinkForm";
-import FaceRecognitionStrap from "./components/FaceRecognition/FaceRecognition";
-import SignInStrap from "./components/SignIn/SignIn";
-import RegisterStrap from "./components/Register/Register";
+import Navigation from "./components/navigation/Navigation";
+import ImageLinkForm from "./components/ImageLinkForm";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 
 import Sandpit from "./components/Sandpit";
 
@@ -144,7 +144,7 @@ export default class App extends Component {
       if (this.state.route === "sandpit") {
         return (
           <div>
-            <NavigationStrap
+            <Navigation
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
@@ -159,12 +159,12 @@ export default class App extends Component {
       if (this.state.route === "signIn") {
         return (
           <div>
-            <NavigationStrap
+            <Navigation
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
             />
-            <SignInStrap
+            <SignIn
               onRouteChange={this.onRouteChange}
               loadUser={this.loadUser}
             />
@@ -174,12 +174,12 @@ export default class App extends Component {
       if (this.state.route === "register") {
         return (
           <div>
-            <NavigationStrap
+            <Navigation
               onRouteChange={this.onRouteChange}
               route={this.state.route}
               user={this.state.user}
             />
-            <RegisterStrap
+            <Register
               onRouteChange={this.onRouteChange}
               loadUser={this.loadUser}
             />
@@ -188,17 +188,17 @@ export default class App extends Component {
       }
       return (
         <div>
-          <NavigationStrap
+          <Navigation
             onRouteChange={this.onRouteChange}
             route={this.state.route}
             user={this.state.user}
           />
-          <ImageLinkFormStrap
+          <ImageLinkForm
             onImageInputChange={this.onImageInputChange}
             onImageInputSubmit={this.onImageInputSubmit}
             imageInput={this.state.imageInput}
           />
-          <FaceRecognitionStrap
+          <FaceRecognition
             imageUrl={this.state.imageUrl}
             imageError={this.state.imageError}
             updateEntriesCount={this.updateEntriesCount}
