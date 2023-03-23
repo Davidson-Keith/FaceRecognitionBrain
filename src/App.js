@@ -1,10 +1,10 @@
-import { Component } from "react";
+import {Component} from "react";
 
 import Navigation from "./components/navigation/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import SignIn from "./components/SignIn/SignIn";
-import Register from "./components/Register/Register";
+import SignIn from "./components/Forms/SignIn/SignIn";
+import Register from "./components/Forms/Register/Register";
 
 import Sandpit from "./components/Sandpit";
 
@@ -34,11 +34,6 @@ export default class App extends Component {
         joined: "",
       },
     };
-    this.setBodyCSSClassName();
-  }
-
-  setBodyCSSClassName() {
-    // document.body.className = "w-100 ma0 sans-serif";
   }
 
   componentDidMount() {
@@ -53,7 +48,7 @@ export default class App extends Component {
   }
 
   onImageInputChange = (event) => {
-    this.setState({ imageInput: event.target.value });
+    this.setState({imageInput: event.target.value});
   };
 
   onImageInputSubmit = () => {
@@ -100,14 +95,14 @@ export default class App extends Component {
 
   onRouteChange = (route) => {
     console.log("App.onRouteChange - route:", route);
-    this.setState({ route: route });
+    this.setState({route: route});
   };
 
   updateEntriesCount = () => {
     console.log("App.updateEntriesCount() - this.state:", this.state);
     fetch("http://localhost:3000/updateEntriesCount", {
       method: "put",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         id: this.state.user.id,
       }),
@@ -117,7 +112,7 @@ export default class App extends Component {
         if (user.id) {
           console.log("pp.updateEntriesCount().fetch - response.user:", user);
           this.setState(
-            Object.assign(this.state.user, { entries: user.entries })
+            Object.assign(this.state.user, {entries: user.entries})
           );
           // this.setState({ user: user });
         } else {
@@ -141,51 +136,22 @@ export default class App extends Component {
 
   render() {
     console.log("App.render() - this.state:", this.state);
-      if (this.state.route === "sandpit") {
-        return (
-          <div>
-            <Navigation
-              onRouteChange={this.onRouteChange}
-              route={this.state.route}
-              user={this.state.user}
-            />
-            <Sandpit
-              onRouteChange={this.onRouteChange}
-              loadUser={this.loadUser}
-            />
-          </div>
-        );
-      }
-      if (this.state.route === "signIn") {
-        return (
-          <div>
-            <Navigation
-              onRouteChange={this.onRouteChange}
-              route={this.state.route}
-              user={this.state.user}
-            />
-            <SignIn
-              onRouteChange={this.onRouteChange}
-              loadUser={this.loadUser}
-            />
-          </div>
-        );
-      }
-      if (this.state.route === "register") {
-        return (
-          <div>
-            <Navigation
-              onRouteChange={this.onRouteChange}
-              route={this.state.route}
-              user={this.state.user}
-            />
-            <Register
-              onRouteChange={this.onRouteChange}
-              loadUser={this.loadUser}
-            />
-          </div>
-        );
-      }
+    if (this.state.route === "sandpit") {
+      return (
+        <div>
+          {/*<Navigation*/}
+          {/*  onRouteChange={this.onRouteChange}*/}
+          {/*  route={this.state.route}*/}
+          {/*  user={this.state.user}*/}
+          {/*/>*/}
+          <Sandpit
+            onRouteChange={this.onRouteChange}
+            loadUser={this.loadUser}
+          />
+        </div>
+      );
+    }
+    if (this.state.route === "signIn") {
       return (
         <div>
           <Navigation
@@ -193,17 +159,46 @@ export default class App extends Component {
             route={this.state.route}
             user={this.state.user}
           />
-          <ImageLinkForm
-            onImageInputChange={this.onImageInputChange}
-            onImageInputSubmit={this.onImageInputSubmit}
-            imageInput={this.state.imageInput}
-          />
-          <FaceRecognition
-            imageUrl={this.state.imageUrl}
-            imageError={this.state.imageError}
-            updateEntriesCount={this.updateEntriesCount}
+          <SignIn
+            onRouteChange={this.onRouteChange}
+            loadUser={this.loadUser}
           />
         </div>
       );
+    }
+    if (this.state.route === "register") {
+      return (
+        <div>
+          <Navigation
+            onRouteChange={this.onRouteChange}
+            route={this.state.route}
+            user={this.state.user}
+          />
+          <Register
+            onRouteChange={this.onRouteChange}
+            loadUser={this.loadUser}
+          />
+        </div>
+      );
+    }
+    return (
+      <div>
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          route={this.state.route}
+          user={this.state.user}
+        />
+        <ImageLinkForm
+          onImageInputChange={this.onImageInputChange}
+          onImageInputSubmit={this.onImageInputSubmit}
+          imageInput={this.state.imageInput}
+        />
+        <FaceRecognition
+          imageUrl={this.state.imageUrl}
+          imageError={this.state.imageError}
+          updateEntriesCount={this.updateEntriesCount}
+        />
+      </div>
+    );
   }
 }
