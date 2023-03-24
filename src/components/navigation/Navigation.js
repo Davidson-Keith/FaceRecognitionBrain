@@ -3,9 +3,9 @@ import Logo from "../logo/Logo";
 // import EntryCount from "../EntryCount";
 import PropTypes from "prop-types";
 import NavText from "./NavText";
-import NavButton from "./navButtons/NavButton";
-import NavButtonSignIn from "./navButtons/NavButtonSignIn";
-
+import NavButtonTach from "./navButtons/NavButtonTach";
+import NavButtonSignInTach from "./navButtons/NavButtonSignInTach";
+import "tachyons"; // Replace all CSS files with tachyons CSS framework.
 class Navigation extends React.Component {
   // -----
   // Props
@@ -22,11 +22,11 @@ class Navigation extends React.Component {
         <div className={mainSectionClass}>
           <NavText text={this.props.user.name} />
           <NavText text={`Entry Count: ${this.props.user.entries}`} />
-          <NavButton
+          <NavButtonTach
             text={"Sandpit"}
             onClick={() => this.props.onRouteChange("sandpit")}
           />
-          <NavButton
+          <NavButtonTach
             text={"Sign Out"}
             onClick={() => this.props.onRouteChange("signIn")}
           />
@@ -36,12 +36,12 @@ class Navigation extends React.Component {
     if (this.props.route === "signIn") {
       mainSection = (
         <div className={mainSectionClass}>
-          <NavButton
+          <NavButtonTach
             text={"Sandpit"}
             onClick={() => this.props.onRouteChange("sandpit")}
           />
           <NavText text={"Sign In"} />
-          <NavButton
+          <NavButtonTach
             text={"Register"}
             onClick={() => this.props.onRouteChange("register")}
           />
@@ -51,11 +51,11 @@ class Navigation extends React.Component {
     if (this.props.route === "register") {
       mainSection = (
         <div className={mainSectionClass}>
-          <NavButton
+          <NavButtonTach
             text={"Sandpit"}
             onClick={() => this.props.onRouteChange("sandpit")}
           />
-          <NavButtonSignIn onClick={() => this.props.onRouteChange("signIn")} />
+          <NavButtonSignInTach onClick={() => this.props.onRouteChange("signIn")} />
           <NavText text={"Register"} />
         </div>
       );
@@ -66,7 +66,7 @@ class Navigation extends React.Component {
           <NavText text={this.props.user.name} />
           <NavText text={`Entry Count: ${this.props.user.entries}`} />
           <NavText text={"Sandpit"} />
-          <NavButton
+          <NavButtonTach
             text={"Sign Out"}
             onClick={() => this.props.onRouteChange("signIn")}
           />

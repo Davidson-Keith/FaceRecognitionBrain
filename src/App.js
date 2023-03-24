@@ -3,11 +3,13 @@ import {Component} from "react";
 import Navigation from "./components/navigation/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
-import SignIn from "./components/Forms/SignIn/SignIn";
-import Register from "./components/Forms/Register/Register";
+import SignIn from "./components/SignIn/SignIn";
+import Register from "./components/Register/Register";
 
 import Sandpit from "./components/Sandpit";
 
+// import "./App.css";
+// import ParticlesBg from "particles-bg";
 export default class App extends Component {
   // -----
   // Props
@@ -34,6 +36,11 @@ export default class App extends Component {
         joined: "",
       },
     };
+    this.setBodyCSSClassName();
+  }
+
+  setBodyCSSClassName() {
+    document.body.className = "w-100 ma0 sans-serif";
   }
 
   componentDidMount() {
@@ -51,7 +58,8 @@ export default class App extends Component {
     this.setState({imageInput: event.target.value});
   };
 
-  onImageInputSubmit = () => {
+  onImageInputSubmit = (event) => {
+    event.preventDefault();
     console.log("App.onImageInputSubmit - state:", this.state);
     this.doesImageExist(this.state.imageInput).then((res) => {
       if (res) {
@@ -136,14 +144,15 @@ export default class App extends Component {
 
   render() {
     console.log("App.render() - this.state:", this.state);
+
     if (this.state.route === "sandpit") {
       return (
         <div>
-          {/*<Navigation*/}
-          {/*  onRouteChange={this.onRouteChange}*/}
-          {/*  route={this.state.route}*/}
-          {/*  user={this.state.user}*/}
-          {/*/>*/}
+          <Navigation
+            onRouteChange={this.onRouteChange}
+            route={this.state.route}
+            user={this.state.user}
+          />
           <Sandpit
             onRouteChange={this.onRouteChange}
             loadUser={this.loadUser}
@@ -198,6 +207,9 @@ export default class App extends Component {
           imageError={this.state.imageError}
           updateEntriesCount={this.updateEntriesCount}
         />
+        {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
+        {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
+        "tadpole" "fountain" "random" "custom" */}
       </div>
     );
   }
