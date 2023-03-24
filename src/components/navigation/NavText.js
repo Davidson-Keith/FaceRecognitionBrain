@@ -7,7 +7,7 @@ export default class NavText extends React.Component {
   // -----
   // text: PropTypes.string.isRequired,
   render() {
-    return <span className="f6 dib white mr3 mr4-ns">{this.props.text}</span>;
+    return <span className="f6 dib white mr3 m3-ns">{this.props.text}</span>;
   }
 }
 

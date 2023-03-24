@@ -12,7 +12,7 @@ const ImageLinkForm = ({onImageInputChange, onImageInputSubmit, input}) => {
 
   return (
     <form>
-      <p className="f3 tc">
+      <p className="f4 tc">
         This app will detect faces in your pictures.
         <br/>
         Enter an image URL:

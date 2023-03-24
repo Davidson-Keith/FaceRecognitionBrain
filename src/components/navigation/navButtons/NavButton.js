@@ -11,7 +11,7 @@ export default class NavButton extends React.Component {
   render() {
     return (
       <span
-        className="f6 dib white bg-animate hover-bg-white hover-black mr3 mr4-ns pv2 ph3 br3 ba b--white-20 pointer"
+        className="f6 dib white bg-animate hover-bg-white hover-black mr2 mr2-ns pv2 ph3 br2 ba b--white-20 pointer"
         onClick={this.props.onClick}
       >
         {this.props.text}
