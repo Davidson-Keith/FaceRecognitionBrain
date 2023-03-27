@@ -1,12 +1,12 @@
-import {Component} from "react";
+import React, {Component} from "react";
 
 import Navigation from "./components/navigation/Navigation";
 import ImageLinkForm from "./components/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
-
 import Sandpit from "./components/Sandpit";
+// import "tachyons";
 
 // import "./App.css";
 // import ParticlesBg from "particles-bg";
@@ -61,27 +61,29 @@ export default class App extends Component {
   onImageInputSubmit = (event) => {
     event.preventDefault();
     console.log("App.onImageInputSubmit - state:", this.state);
-    this.doesImageExist(this.state.imageInput).then((res) => {
-      if (res) {
-        console.log(
-          "App.onImageInputSubmit - image exists:",
-          this.state.imageInput
-        );
-        this.setState({
-          imageUrl: this.state.imageInput,
-          imageError: false,
-        });
-      } else {
-        console.log(
-          "App.onImageInputSubmit - image DOES NOT exists:",
-          this.state.imageInput
-        );
-        this.setState({
-          imageUrl: this.state.imageInput,
-          imageError: true,
-        });
-      }
-    });
+    this.doesImageExist(this.state.imageInput)
+      .then((res) => {
+        if (res) {
+          console.log(
+            "App.onImageInputSubmit - image exists:",
+            this.state.imageInput
+          );
+          this.setState({
+            imageUrl: this.state.imageInput,
+            imageError: false,
+          });
+        } else {
+          console.log(
+            "App.onImageInputSubmit - image DOES NOT exists:",
+            this.state.imageInput
+          );
+          this.setState({
+            imageUrl: this.state.imageInput,
+            imageError: true,
+          });
+        }
+      })
+      .catch(console.log);
     console.log(this.state);
   };
 
@@ -129,7 +131,8 @@ export default class App extends Component {
             user
           );
         }
-      });
+      })
+      .catch(console.log);
   };
 
   loadUser = (data) => {
@@ -145,71 +148,76 @@ export default class App extends Component {
   render() {
     console.log("App.render() - this.state:", this.state);
 
+    const navigation = (
+      <Navigation
+        onRouteChange={this.onRouteChange}
+        route={this.state.route}
+        user={this.state.user}
+      />
+    );
+    const sandpit = (
+      <Sandpit
+        onRouteChange={this.onRouteChange}
+        loadUser={this.loadUser}
+      />
+    );
+    const signIn = (
+      <SignIn
+        onRouteChange={this.onRouteChange}
+        loadUser={this.loadUser}
+      />
+    );
+    const register = (
+      <Register
+        onRouteChange={this.onRouteChange}
+        loadUser={this.loadUser}
+      />
+    );
+    const imageLinkForm = (
+      <ImageLinkForm
+        onImageInputChange={this.onImageInputChange}
+        onImageInputSubmit={this.onImageInputSubmit}
+        imageInput={this.state.imageInput}
+      />
+    );
+    const faceRecognition = (
+      <FaceRecognition
+        imageUrl={this.state.imageUrl}
+        imageError={this.state.imageError}
+        updateEntriesCount={this.updateEntriesCount}
+      />
+    );
+
     if (this.state.route === "sandpit") {
       return (
         <div>
-          <Navigation
-            onRouteChange={this.onRouteChange}
-            route={this.state.route}
-            user={this.state.user}
-          />
-          <Sandpit
-            onRouteChange={this.onRouteChange}
-            loadUser={this.loadUser}
-          />
+          {navigation}
+          {sandpit}
         </div>
       );
     }
-    if (this.state.route === "signIn") {
+    if (this.state.route === "main") {
       return (
         <div>
-          <Navigation
-            onRouteChange={this.onRouteChange}
-            route={this.state.route}
-            user={this.state.user}
-          />
-          <SignIn
-            onRouteChange={this.onRouteChange}
-            loadUser={this.loadUser}
-          />
+          {navigation}
+          {imageLinkForm}
+          {faceRecognition}
         </div>
       );
     }
     if (this.state.route === "register") {
       return (
         <div>
-          <Navigation
-            onRouteChange={this.onRouteChange}
-            route={this.state.route}
-            user={this.state.user}
-          />
-          <Register
-            onRouteChange={this.onRouteChange}
-            loadUser={this.loadUser}
-          />
+          {navigation}
+          {register}
         </div>
       );
     }
+    // default signIn: if (this.state.route === "signIn") {
     return (
       <div>
-        <Navigation
-          onRouteChange={this.onRouteChange}
-          route={this.state.route}
-          user={this.state.user}
-        />
-        <ImageLinkForm
-          onImageInputChange={this.onImageInputChange}
-          onImageInputSubmit={this.onImageInputSubmit}
-          imageInput={this.state.imageInput}
-        />
-        <FaceRecognition
-          imageUrl={this.state.imageUrl}
-          imageError={this.state.imageError}
-          updateEntriesCount={this.updateEntriesCount}
-        />
-        {/* <ParticlesBg type="cobweb" num={50} bg={true} /> */}
-        {/* type: "color" "ball" "lines" "thick" "circle" "cobweb" "polygon" "square"
-        "tadpole" "fountain" "random" "custom" */}
+        {navigation}
+        {signIn}
       </div>
     );
   }

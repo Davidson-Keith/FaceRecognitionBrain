@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { Field, FieldError, Form } from "react-jsonschema-form-validation";
-import "tachyons"; // Replace all CSS files with tachyons CSS framework.
-
-
-// import './SignIn.css';
-
-// const SignIn = ({ onRouteChange }) => {
+import FormInput from "../forms/formInput";
+import FormSubmit from "../forms/formSubmit";
 
 export default class SignIn extends React.Component {
   // -----
@@ -54,9 +49,10 @@ export default class SignIn extends React.Component {
             "SignIn.onSubmitSignIn().fetch - login failed - message:",
             user
           );
-          this.setState({signInErrorMessage: user});
+          // this.setState({signInErrorMessage: user});
         }
-      });
+      })
+      .catch(console.log);
   };
 
   render() {
@@ -73,46 +69,19 @@ export default class SignIn extends React.Component {
                   <label className="db fw6 lh-copy f6" htmlFor="email">
                     Email
                   </label>
-                  <input
-                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    id="email"
-                    name="email"
-                    type="email"
-                    // value={formData.email}
-                    onChange={this.onEmailChange}
-                  />
+                  <FormInput name="email" onChange={this.onEmailChange}/>
                 </div>
                 <div className="mv3">
                   <label className="db fw6 lh-copy f6" htmlFor="password">
                     Password
                   </label>
-                  <input
-                    className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    id="password"
-                    name="password"
-                    type="password"
-                    // value={formData.password}
-                    onChange={this.onPasswordChange}
-                  />
+                  <FormInput name="password" onChange={this.onPasswordChange}/>
                 </div>
                 {/* <label className="pa0 ma0 lh-copy f6 pointer">
                 <input type="checkbox" /> Remember me
               </label> */}
               </fieldset>
-              {/*<button*/}
-              {/*  className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"*/}
-              {/*  type="submit"*/}
-              {/*>*/}
-              {/*  Sign In*/}
-              {/*</button>*/}
-              <div className="">
-                <input
-                  className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                  type="submit"
-                  value="Sign In"
-                  onClick={this.onSubmitSignIn}
-                />
-              </div>
+              <FormSubmit value="Sign In" onClick={this.onSubmitSignIn}/>
               <div className="lh-copy mt3 grow pointer">
                 <p
                   href="#0"

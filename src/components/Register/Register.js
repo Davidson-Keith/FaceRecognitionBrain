@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import "tachyons"; // Replace all CSS files with tachyons CSS framework.
+import FormInput from "../forms/formInput";
+import FormSubmit from "../forms/formSubmit";
+
 class Register extends React.Component {
   // -----
   // Props
@@ -66,50 +68,25 @@ class Register extends React.Component {
                   <label className="db fw6 lh-copy f6" htmlFor="name">
                     Name
                   </label>
-                  <input
-                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    type="text"
-                    name="name"
-                    id="name"
-                    onChange={this.onNameChange}
-                  />
+                  <FormInput name="name" onChange={this.onNameChange}/>
                 </div>
                 <div className="mt3">
                   <label className="db fw6 lh-copy f6" htmlFor="email-address">
                     Email
                   </label>
-                  <input
-                    className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    type="email"
-                    name="email-address"
-                    id="email-address"
-                    onChange={this.onEmailChange}
-                  />
+                  <FormInput name="email" onChange={this.onEmailChange}/>
                 </div>
                 <div className="mv3">
                   <label className="db fw6 lh-copy f6" htmlFor="password">
                     Password
                   </label>
-                  <input
-                    className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                    type="password"
-                    name="password"
-                    id="password"
-                    onChange={this.onPasswordChange}
-                  />
+                  <FormInput name="password" onChange={this.onPasswordChange}/>
                 </div>
                 {/* <label className="pa0 ma0 lh-copy f6 pointer">
                 <input type="checkbox" /> Remember me
               </label> */}
               </fieldset>
-              <div className="">
-                <input
-                  className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                  type="submit"
-                  value="Register"
-                  onClick={this.onSubmitRegister}
-                />
-              </div>
+              <FormSubmit value="Register" onClick={this.onSubmitRegister}/>
             </form>
           </div>
         </main>
