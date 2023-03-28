@@ -41,15 +41,11 @@ export default class SignIn extends React.Component {
       .then((user) => {
         // if user exists
         if (user.id) {
-          console.log("SignIn.onSubmitSignIn().fetch - response.user:", user);
+          console.log("response.user:", user);
           this.props.loadUser(user);
           this.props.onRouteChange("main");
         } else {
-          console.log(
-            "SignIn.onSubmitSignIn().fetch - login failed - message:",
-            user
-          );
-          // this.setState({signInErrorMessage: user});
+          console.log("login failed - message:", user);
         }
       })
       .catch(console.log);

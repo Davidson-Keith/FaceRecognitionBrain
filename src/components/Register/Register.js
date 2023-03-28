@@ -45,15 +45,15 @@ class Register extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        if (user) {
-          console.log(
-            "Register.onSubmitRegister().fetch - response.user:",
-            user
-          );
+        if (user.id) {
+          console.log("response.user:", user);
           this.props.loadUser(user);
           this.props.onRouteChange("main");
+        } else {
+          console.log("login failed - message:", user);
         }
-      });
+      })
+      .catch(console.log);
   };
 
   render() {
