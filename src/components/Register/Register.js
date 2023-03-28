@@ -50,7 +50,7 @@ class Register extends React.Component {
           this.props.loadUser(user);
           this.props.onRouteChange("main");
         } else {
-          console.log("login failed - message:", user);
+          console.log("register failed - message:", user);
         }
       })
       .catch(console.log);
