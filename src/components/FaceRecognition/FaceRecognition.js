@@ -20,7 +20,7 @@ class FaceRecognition extends React.Component {
     console.log("FaceRecognition.constructor(props) - props:", props);
     super(props);
     this.state = {
-      box: { left: 0, top: 0, right: 0, bottom: 0 },
+      box: {left: 0, top: 0, right: 0, bottom: 0},
     };
   }
 
@@ -61,7 +61,7 @@ class FaceRecognition extends React.Component {
     // reset box for new image so a misplaced box from the previous image doesn't sit on
     // the new image while the Clarifai model runs, which can sometimes take some time.
     this.setState({
-      box: { left: 0, top: 0, right: 0, bottom: 0 },
+      box: {left: 0, top: 0, right: 0, bottom: 0},
     });
     this.runClarifaiModel();
     // }
@@ -117,10 +117,10 @@ class FaceRecognition extends React.Component {
     // this will default to the latest version_id
     fetch(
       "https://api.clarifai.com/v2/models/" +
-        MODEL_ID +
-        // "/versions/" +
-        // MODEL_VERSION_ID +
-        "/outputs",
+      MODEL_ID +
+      // "/versions/" +
+      // MODEL_VERSION_ID +
+      "/outputs",
       requestOptions
     )
       .then((response) => response.text())
@@ -131,11 +131,11 @@ class FaceRecognition extends React.Component {
             "FaceRecognition.runClarifaiModel().fetch.catch(error) - error",
             error
           )
-        // todo: display "Not an image" error msg instead of trying to display the image
       );
   };
 
   calcBox = (jsonData) => {
+    // TODO: use all boxes, not just the first one.
     console.log("FaceRecognition.calcBox(jsonData) - jsonData:", jsonData);
     const clarifaiBoxData =
       JSON.parse(jsonData).outputs[0].data.regions[0].region_info.bounding_box;
@@ -161,7 +161,7 @@ class FaceRecognition extends React.Component {
       bottom: imageHeight - clarifaiBoxData.bottom_row * imageHeight,
     };
     console.log("FaceRecognition.calcBox(jsonData) - boxData: ", boxData);
-    this.setState({ box: boxData });
+    this.setState({box: boxData});
     this.props.updateEntriesCount();
   };
 
