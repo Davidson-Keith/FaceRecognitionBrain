@@ -14,6 +14,7 @@ export default class Box extends React.Component {
   render() {
     return (
       <div
+        key={this.props.id}
         className="boundingBox"
         style={{
           top: this.props.top,

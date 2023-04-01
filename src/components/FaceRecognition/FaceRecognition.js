@@ -91,13 +91,14 @@ class FaceRecognition extends React.Component {
     const regions = data.outputs[0].data.regions;
     console.log("regions: ", regions);
     const boxes = [];
-    regions.forEach(region => {
-      const clarifaiBox = region.region_info.bounding_box;
+    regions.forEach((region) => {
+      const bounding_box = region.region_info.bounding_box;
       const boxData = {
-        left: clarifaiBox.left_col * imageWidth,
-        top: clarifaiBox.top_row * imageHeight,
-        right: imageWidth - clarifaiBox.right_col * imageWidth,
-        bottom: imageHeight - clarifaiBox.bottom_row * imageHeight,
+        id: region.id,
+        left: bounding_box.left_col * imageWidth,
+        top: bounding_box.top_row * imageHeight,
+        right: imageWidth - bounding_box.right_col * imageWidth,
+        bottom: imageHeight - bounding_box.bottom_row * imageHeight,
       };
       boxes.push(boxData);
     });
@@ -128,6 +129,7 @@ class FaceRecognition extends React.Component {
           ></img>
           {this.state.boxes.map(box => (
             <Box
+              key={box.id}
               top={box.top}
               right={box.right}
               bottom={box.bottom}
