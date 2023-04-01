@@ -6,10 +6,10 @@ export default class Box extends React.Component {
   // -----
   // Props
   // -----
-  // top: PropTypes.string.isRequired,
-  // right: PropTypes.string.isRequired,
-  // bottom: PropTypes.string.isRequired,
-  // left: PropTypes.string.isRequired,
+  // top: PropTypes.number.isRequired,
+  // right: PropTypes.number.isRequired,
+  // bottom: PropTypes.number.isRequired,
+  // left: PropTypes.number.isRequired,
 
   render() {
     return (
@@ -27,8 +27,8 @@ export default class Box extends React.Component {
 }
 
 Box.propTypes = {
-  top: PropTypes.string.isRequired,
-  right: PropTypes.string.isRequired,
-  bottom: PropTypes.string.isRequired,
-  left: PropTypes.string.isRequired,
+  top: PropTypes.number.isRequired,
+  right: PropTypes.number.isRequired,
+  bottom: PropTypes.number.isRequired,
+  left: PropTypes.number.isRequired,
 };
