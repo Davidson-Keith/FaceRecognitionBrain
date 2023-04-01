@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Box from './Box';
 import "./FaceRecognition.css";
 
-// const FaceRecognition = ({ imageUrl, box }) => {
+// samples:
 // https://purneauniversity.org/wp-content/uploads/2022/12/JC-.png
 // https://www.oscars.org/sites/oscars/files/02_loren9.jpg
 // https://media.vanityfair.com/photos/615478afc1d17015c14bd905/master/pass/no-time-to-die-film-still-01.jpg
@@ -20,7 +21,7 @@ class FaceRecognition extends React.Component {
     console.log("FaceRecognition.constructor(props) - props:", props);
     super(props);
     this.state = {
-      box: {left: 0, top: 0, right: 0, bottom: 0},
+      boxes: []
     };
   }
 
@@ -61,121 +62,61 @@ class FaceRecognition extends React.Component {
     // reset box for new image so a misplaced box from the previous image doesn't sit on
     // the new image while the Clarifai model runs, which can sometimes take some time.
     this.setState({
-      box: {left: 0, top: 0, right: 0, bottom: 0},
+      boxes: []
     });
-    this.runClarifaiModel();
-    // }
+    // this.runClarifaiModel();
+
+    console.log("FaceRecognition.fetching...");
+    fetch("http://localhost:3000/imageURL", {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      // body: JSON.stringify({name: this.props.imageUrl})
+      body: JSON.stringify({"url": this.props.imageUrl})
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("FaceRecognition.runModel().response:", result);
+        this.calcBox(result)
+      })
+      .catch(console.log);
   };
 
-  // console.log("FaceRecognition(imageUrl, box) - imageUrl, box: ", imageUrl, box);
-
-  runClarifaiModel = () => {
-    console.log(
-      "FaceRecognition.runClarifaiModel() - this.state this.props:",
-      this.state,
-      this.props
-    );
-    const USER_ID = "chengis";
-    // Your PAT (Personal Access Token) can be found in the portal under Authentification
-    const PAT = "b6489c5155df49bc9ed8f81eb64d532d";
-    const APP_ID = "facebrain";
-    const MODEL_ID = "face-detection";
-    // const Model = Clarifai.FACE_DETECT_MODEL; // This is NOT the Model ID???
-    // console.log("Model: ", Model);
-    // const MODEL_VERSION_ID = "45fb9a671625463fa646c3523a3087d5";
-    // const IMAGE_URL = "https://samples.clarifai.com/metro-north.jpg";
-    // const IMAGE_URL = this.state.imageInput;
-    const IMAGE_URL = this.props.imageUrl;
-
-    const raw = JSON.stringify({
-      user_app_id: {
-        user_id: USER_ID,
-        app_id: APP_ID,
-      },
-      inputs: [
-        {
-          data: {
-            image: {
-              url: IMAGE_URL,
-            },
-          },
-        },
-      ],
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Key " + PAT,
-      },
-      body: raw,
-    };
-
-    // NOTE: MODEL_VERSION_ID is optional, you can also call prediction with the MODEL_ID only
-    // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
-    // this will default to the latest version_id
-    fetch(
-      "https://api.clarifai.com/v2/models/" +
-      MODEL_ID +
-      // "/versions/" +
-      // MODEL_VERSION_ID +
-      "/outputs",
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => this.calcBox(result))
-      .catch(
-        (error) =>
-          console.log(
-            "FaceRecognition.runClarifaiModel().fetch.catch(error) - error",
-            error
-          )
-      );
-  };
-
-  calcBox = (jsonData) => {
-    // TODO: use all boxes, not just the first one.
-    console.log("FaceRecognition.calcBox(jsonData) - jsonData:", jsonData);
-    const clarifaiBoxData =
-      JSON.parse(jsonData).outputs[0].data.regions[0].region_info.bounding_box;
-    console.log(
-      "FaceRecognition.calcBox(jsonData) - clarifaiBoxData: ",
-      clarifaiBoxData
-    );
+  calcBox = (data) => {
+    console.log("FaceRecognition.calcBox(data) - data:", data);
     const image = document.getElementById("imageID");
     const imageWidth = Number(image.width);
     const imageHeight = Number(image.height);
-    console.log(
-      "FaceRecognition.calcBox(jsonData) - Image width: ",
-      imageWidth
-    );
-    console.log(
-      "FaceRecognition.calcBox(jsonData) - Image height: ",
-      imageHeight
-    );
-    const boxData = {
-      left: clarifaiBoxData.left_col * imageWidth,
-      top: clarifaiBoxData.top_row * imageHeight,
-      right: imageWidth - clarifaiBoxData.right_col * imageWidth,
-      bottom: imageHeight - clarifaiBoxData.bottom_row * imageHeight,
-    };
-    console.log("FaceRecognition.calcBox(jsonData) - boxData: ", boxData);
-    this.setState({box: boxData});
+    console.log("FaceRecognition.calcBox - Image width: ", imageWidth);
+    console.log("FaceRecognition.calcBox - Image height: ", imageHeight);
+    const regions = data.outputs[0].data.regions;
+    console.log("regions: ", regions);
+    const boxes = [];
+    regions.forEach(region => {
+      const clarifaiBox = region.region_info.bounding_box;
+      const boxData = {
+        left: clarifaiBox.left_col * imageWidth,
+        top: clarifaiBox.top_row * imageHeight,
+        right: imageWidth - clarifaiBox.right_col * imageWidth,
+        bottom: imageHeight - clarifaiBox.bottom_row * imageHeight,
+      };
+      boxes.push(boxData);
+    });
+    console.log('boxes:', boxes);
+    this.setState({
+      boxes: boxes
+    });
     this.props.updateEntriesCount();
   };
 
   render() {
     console.log("FaceRecognition.render() - this.state", this.state);
     console.log("FaceRecognition.render() - this.props:", this.props);
-    const box = this.state.box;
     let imgDiv;
     if (this.props.imageUrl === "") {
       imgDiv = "";
     } else if (this.props.imageError) {
       imgDiv = <p>Entered URL is not an image</p>;
     } else {
-      // if (this.props.imageUrl) {
       imgDiv = (
         <div className="absolute mt2">
           <img
@@ -185,22 +126,18 @@ class FaceRecognition extends React.Component {
             width="500px"
             // height="auto"
           ></img>
-          <div
-            className="boundingBox"
-            style={{
-              top: box.top,
-              right: box.right,
-              bottom: box.bottom,
-              left: box.left,
-            }}
-          ></div>
+          {this.state.boxes.map(box => (
+            <Box
+              top={box.top}
+              right={box.right}
+              bottom={box.bottom}
+              left={box.left}
+            />
+          ))
+          }
         </div>
       );
-      // } else {
-      // if there is no image URL, then we don't want an image tag at all, or it will display
-      // as a lost image.
-      // imgTag = "hi";
-      // }
+      console.log('imgDiv:', imgDiv);
     }
 
     return (
@@ -240,3 +177,5 @@ export default FaceRecognition;
 //   width: "500px";
 //   /* height: "auto"; */
 // }
+
+

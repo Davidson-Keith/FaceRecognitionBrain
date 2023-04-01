@@ -120,14 +120,14 @@ export default class App extends Component {
       .then((response) => response.json())
       .then((user) => {
         if (user.id) {
-          console.log("pp.updateEntriesCount().fetch - response.user:", user);
+          console.log("App.updateEntriesCount().fetch - response.user:", user);
           this.setState(
             Object.assign(this.state.user, {entries: user.entries})
           );
           // this.setState({ user: user });
         } else {
           console.log(
-            "pp.updateEntriesCount().fetch - find user failed - message:",
+            "App.updateEntriesCount().fetch - find user failed - message:",
             user
           );
         }
