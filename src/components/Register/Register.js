@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import FormInput from "../forms/formInput";
 import FormSubmit from "../forms/formSubmit";
+import Settings from "../../Settings";
 
 class Register extends React.Component {
   // -----
@@ -34,7 +35,8 @@ class Register extends React.Component {
   onSubmitRegister = (event) => {
     event.preventDefault();
     console.log("Register.onSubmitRegister() - this.state:", this.state);
-    fetch("http://localhost:3000/register", {
+    // fetch("http://localhost:3000/register", {
+    fetch(Settings.hostURL + "register", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

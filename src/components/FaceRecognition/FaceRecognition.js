@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Box from './Box';
 import "./FaceRecognition.css";
+import Settings from "../../Settings";
 
 // samples:
 // https://purneauniversity.org/wp-content/uploads/2022/12/JC-.png
@@ -67,7 +68,8 @@ class FaceRecognition extends React.Component {
     // this.runClarifaiModel();
 
     console.log("FaceRecognition.fetching...");
-    fetch("http://localhost:3000/imageURL", {
+    // fetch("http://localhost:3000/imageURL", {
+    fetch(Settings.hostURL + "/imageURL", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       // body: JSON.stringify({name: this.props.imageUrl})

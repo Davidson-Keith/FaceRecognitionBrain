@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FormInput from "../forms/formInput";
 import FormSubmit from "../forms/formSubmit";
+import Settings from "../../Settings";
 
 export default class SignIn extends React.Component {
   // -----
@@ -29,7 +30,8 @@ export default class SignIn extends React.Component {
   onSubmitSignIn = (event) => {
     event.preventDefault();
     console.log("SignIn.onSubmitSignIn() - this.state:", this.state);
-    fetch("http://localhost:3000/signin", {
+    // fetch("http://localhost:3000/signin", {
+    fetch(Settings.hostURL + "signin", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

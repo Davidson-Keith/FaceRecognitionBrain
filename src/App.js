@@ -6,6 +6,7 @@ import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
 import Sandpit from "./components/Sandpit";
+import Settings from "./Settings";
 // import "tachyons";
 
 // import "./App.css";
@@ -110,7 +111,8 @@ export default class App extends Component {
 
   updateEntriesCount = () => {
     console.log("App.updateEntriesCount() - this.state:", this.state);
-    fetch("http://localhost:3000/updateEntriesCount", {
+    // fetch("http://localhost:3000/updateEntriesCount", {
+    fetch(Settings.hostURL + "updateEntriesCount", {
       method: "put",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
