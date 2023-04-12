@@ -31,7 +31,7 @@ export default class SignIn extends React.Component {
     event.preventDefault();
     console.log("SignIn.onSubmitSignIn() - this.state:", this.state);
     // fetch("http://localhost:3000/signin", {
-    fetch(Settings.hostURL + "signin", {
+    fetch(Settings.hostURL + "/signin", {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

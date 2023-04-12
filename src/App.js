@@ -112,7 +112,7 @@ export default class App extends Component {
   updateEntriesCount = () => {
     console.log("App.updateEntriesCount() - this.state:", this.state);
     // fetch("http://localhost:3000/updateEntriesCount", {
-    fetch(Settings.hostURL + "updateEntriesCount", {
+    fetch(Settings.hostURL + "/updateEntriesCount", {
       method: "put",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
