@@ -1,6 +1,6 @@
 # facerecognitionbrain
 
-## This project is from the Udemy course: <br>
+### This project is from the Udemy course: <br>
 
 The Complete Web Developer in 2023: Zero to Mastery <br>
 https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
