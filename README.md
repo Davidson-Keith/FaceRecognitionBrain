@@ -23,7 +23,7 @@ The CSS used doesn't work 100% as expected on all platforms, e.g. iOS.
 ## Tech
 
 React.js  
-Tachyons
+Tachyons  
 Node.js  
 PostgreSQL  
 express.js  
