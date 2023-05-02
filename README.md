@@ -8,7 +8,7 @@ https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery
 It is a project working along with the course.<br>
 
 facerecognitionbrain is the react.js front-end, and connects to the backend API and server for
-the [facerecognitionbrain-api](https://markdownlivepreview.com/) repo.
+the [facerecognitionbrain-api](https://github.com/surfingsanta/FaceRecognitionBrain-API) repo.
 
 See it running [here](https://surfingsanta.github.io/FaceRecognitionBrain/). The front-end is running on Github Pages,
 and the back-end and database servers are running on Heroku. Heroku, incidentally, hosts the database on AWS.
