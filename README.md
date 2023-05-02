@@ -20,6 +20,8 @@ presentation of an error message for an invalid login.
 
 The CSS used doesn't work 100% as expected on all platforms, e.g. iOS.
 
+There is no support for uploading an image, the image must be supplied as a URL by the user.
+
 ## Tech
 
 React.js  
