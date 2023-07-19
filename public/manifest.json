@@ -1,5 +1,8 @@
 {
+  "name": "facerecognitionbrain-api",
   "short_name": "Face Recognition Brain",
+  "version": "1.0.0",
+  "homepage": "https://Davidson-Keith.github.io/FaceRecognitionBrain",
   "name": "Face Recognition Brain",
   "icons": [
     {
